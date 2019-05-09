@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:weightSum="8"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#0E0E0D"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        >
+        <LinearLayout
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:weightSum="2"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_margin="5dp"
+                android:textColor="#B42ECC"
+
+                android:textSize="20dp"
+                android:text="Name Song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="#8D3DA0"
+
+                android:layout_margin="5dp"
+                android:textSize="15dp"
+                android:text="Name Artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/time_off"
+            android:layout_margin="5dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_clock"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/disk"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:src="@drawable/ic_disk_cd"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="7"
+        >
+
+        <ImageButton
+            android:id="@+id/favorites"
+            android:layout_margin="5dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_not_love"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:weightSum="2"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <TextView
+                    android:textColor="#F8F0F0"
+                    android:textSize="10dp"
+                    android:layout_margin="10dp"
+                    android:text="0:00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="#F8F0F0"
+
+                    android:textSize="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    android:text="1:00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <ImageButton
+            android:id="@+id/choose_playlist"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_playlist"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        >
+
+        <ImageButton
+            android:id="@+id/model_play"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_nomal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+        <ImageButton
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_previous"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+        <ImageButton
+            android:id="@+id/play_stop"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_stop"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+        <ImageButton
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_next"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+</LinearLayout>

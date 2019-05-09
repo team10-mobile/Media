@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="5"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_song_perform"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        />
+    <LinearLayout
+        android:orientation="vertical"
+        android:weightSum="2"
+        android:layout_weight="3"
+        android:layout_width="0dp"
+        android:layout_height="100dp">
+
+        <TextView
+            android:id="@+id/name_song"
+            android:layout_margin="5dp"
+            android:textSize="15dp"
+            android:textColor="#9C27B0"
+            android:text="Name Song"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+        <TextView
+            android:textColor="#B855CA"
+            android:textSize="10dp"
+            android:id="@+id/name_artist"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Name Artist"
+            />
+    </LinearLayout>
+    <ImageButton
+        android:layout_marginTop="20dp"
+        android:id="@+id/button_menu"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_menu_2"
+        android:background="@null"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="30dp" />
+
+</LinearLayout>

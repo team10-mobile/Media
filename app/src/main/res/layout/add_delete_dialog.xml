@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ImageView
+        android:id="@+id/add_playlist"
+        android:src="@drawable/ic_playlist"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/add_playlist"
+        android:text="Add to playlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_below="@id/add_playlist"
+        android:id="@+id/Delete_file"
+        android:src="@drawable/ic_delete"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+    <TextView
+        android:layout_below="@id/add_playlist"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/Delete_file"
+        android:text="Delete file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
