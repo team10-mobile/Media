@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         openFragment();
     }
-    // open fragment
+    // open fragments
     private void openFragment()
     {
         mFragmentManager = getSupportFragmentManager();
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         mFragmentTransaction.replace(R.id.frame_music_mode,new ModeMusicFragment());
         mFragmentTransaction.commit();
     }
-
+    // click back go to MyMusic Fragment
     @Override
     public void onBackPressed() {
         FragmentManager mFragmentManager = getSupportFragmentManager();
@@ -57,14 +57,13 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.scan,menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-    // TO DO:     click scan songs in local
+    // scan songs
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
             case R.id.button_scan_songs:
-                // code scan song here
+                // todo: scan songs
                 break;
         }
         return super.onOptionsItemSelected(item);

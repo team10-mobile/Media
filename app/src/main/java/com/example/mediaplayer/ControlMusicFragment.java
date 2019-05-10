@@ -37,7 +37,8 @@ public class ControlMusicFragment extends Fragment {
         controlSongs();
         return mView;
     }
-
+    // todo: play, pause, next, previous song
+    // control: play, pause, next, previous song
     private void controlSongs()
     {
         mPlayPause.setOnClickListener(new View.OnClickListener() {
@@ -47,30 +48,32 @@ public class ControlMusicFragment extends Fragment {
                     mPlayPause.setImageResource(R.drawable.ic_play);
                     mIsPlay = true;
                     mDisk.startAnimation(mTotaleDisk);
+                    // todo: play song
                 }
                 else
                 {
                     mPlayPause.setImageResource(R.drawable.ic_stop);
                     mIsPlay = false;
                     mDisk.clearAnimation();
+                    // todo: pause song
                 }
             }
         });
-        // To do: next music
+
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // todo: next song
             }
         });
-        // To do: previous music
         mPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // todo: previous song
             }
         });
     }
-
+    // open Activity PlaySong
     private void openPlaySong()
     {
         mControl.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +84,7 @@ public class ControlMusicFragment extends Fragment {
             }
         });
     }
-
+    // mapping views
     private void mapping()
     {
         mControl = mView.findViewById(R.id.layout_control);

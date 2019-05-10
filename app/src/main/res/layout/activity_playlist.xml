@@ -8,11 +8,13 @@
     >
 
     <ListView
+        android:id="@+id/list_playlist"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
         />
     <ImageButton
+        android:id="@+id/add_name_playlist"
         android:background="@null"
         android:scaleType="centerInside"
         android:src="@drawable/ic_add"
