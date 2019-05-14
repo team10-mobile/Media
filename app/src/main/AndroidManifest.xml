@@ -16,20 +16,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AlbumsActivity"></activity>
-        <activity android:name=".ArtistsActivity" />
-        <activity android:name=".FavoritesActivity" />
-        <activity android:name=".DownLoadActivity" />
-        <activity android:name=".PlaylistActivity" />
-        <activity android:name=".SongsActivity" />
-        <activity android:name=".PlaySongsActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.AlbumsActivity"></activity>
+        <activity android:name=".activities.ArtistsActivity" />
+        <activity android:name=".activities.FavoritesActivity" />
+        <activity android:name=".activities.DownLoadActivity" />
+        <activity android:name=".activities.PlaylistActivity" />
+        <activity android:name=".activities.SongsActivity" />
+        <activity android:name=".activities.PlaySongsActivity" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".service.MediaPlayerService"/>
+
+        <receiver android:name=".activities.BaseActivity$BroadcastListener">
+        </receiver>
     </application>
 
 

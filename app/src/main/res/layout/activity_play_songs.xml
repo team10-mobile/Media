@@ -55,6 +55,7 @@
         </LinearLayout>
 
         <ImageButton
+            android:padding="5dp"
             android:id="@+id/time_off"
             android:layout_margin="5dp"
             android:background="@null"
@@ -66,6 +67,7 @@
     </LinearLayout>
 
     <ImageView
+        android:padding="10dp"
         android:id="@+id/disk"
         android:layout_margin="30dp"
         android:layout_width="match_parent"
@@ -124,6 +126,7 @@
                 android:layout_weight="1"/>
         </LinearLayout>
         <ImageButton
+            android:padding="5dp"
             android:id="@+id/choose_playlist"
             android:background="@null"
             android:scaleType="centerInside"
@@ -141,6 +144,7 @@
         >
 
         <ImageButton
+            android:padding="10dp"
             android:id="@+id/model_play"
             android:background="@null"
             android:scaleType="centerInside"
@@ -150,7 +154,11 @@
             android:layout_weight="1"
             />
         <ImageButton
+<<<<<<< HEAD
+            android:padding="10dp"
+=======
             android:id="@+id/previous_song"
+>>>>>>> 732d68957acda5773f74ddf2c61ee14c2ca87654
             android:background="@null"
             android:scaleType="centerInside"
             android:src="@drawable/ic_previous"
@@ -159,6 +167,7 @@
             android:layout_weight="1"
             />
         <ImageButton
+            android:padding="10dp"
             android:id="@+id/play_stop"
             android:background="@null"
             android:scaleType="centerInside"
@@ -168,7 +177,11 @@
             android:layout_weight="1"
             />
         <ImageButton
+<<<<<<< HEAD
+            android:padding="10dp"
+=======
             android:id="@+id/next_song"
+>>>>>>> 732d68957acda5773f74ddf2c61ee14c2ca87654
             android:background="@null"
             android:scaleType="centerInside"
             android:src="@drawable/ic_next"
