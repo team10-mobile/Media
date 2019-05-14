@@ -53,7 +53,7 @@ public class BaseActivity extends AppCompatActivity
     private void registerBroadcast(){
         broadcastListener = new BroadcastListener();
         IntentFilter intentFilter = new IntentFilter("metaChanged.Broadcast");
-        registerReceiver(broadcastListener,intentFilter);
+       registerReceiver(broadcastListener,intentFilter);
     }
     @Override
     protected void onStop() {

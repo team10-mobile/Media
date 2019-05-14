@@ -3,9 +3,7 @@ package com.example.mediaplayer.activities;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +23,7 @@ public class MainActivity extends BaseActivity {
     private FragmentTransaction mFragmentTransaction;
 
     //themzo
-    ImageButton like, notlike,dislike,notdislike;
+    ImageButton  notlike,notdislike;
     ImageButton play,pause,play_main,pause_main;
     private SlidingUpPanelLayout mLayout;
     //endthemzo
@@ -36,9 +34,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         openFragment();
         //themzo
-        like = findViewById(R.id.imageButton2);
         notlike =  findViewById(R.id.imageButton2new);
-        dislike = findViewById(R.id.button);
         notdislike =  findViewById(R.id.buttontwo);
         play = findViewById(R.id.play_button);
         pause = findViewById(R.id.pause_button);
@@ -54,7 +50,6 @@ public class MainActivity extends BaseActivity {
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         ///Them music control tai day
-       // mFragmentTransaction.replace(R.id.frame_music_control,new ControlMusicFragment());
 
         mFragmentTransaction.replace(R.id.frame_music_contains,new MyMusicFragment());
 
@@ -106,32 +101,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void themzo(){
-        like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notlike.setVisibility(View.VISIBLE);
-                Toast.makeText(MainActivity.this,"You Like the Song",Toast.LENGTH_SHORT).show();
-                if (notdislike.getVisibility() == View.VISIBLE){
-                    notdislike.setVisibility(View.GONE);
-                }
-            }
-        });
 
         notlike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 notlike.setVisibility(View.GONE);
-            }
-        });
-
-        dislike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notdislike.setVisibility(View.VISIBLE);
-                Toast.makeText(MainActivity.this,"You DisLike the Song",Toast.LENGTH_SHORT).show();
-                if (notlike.getVisibility() == View.VISIBLE){
-                    notlike.setVisibility(View.GONE);
-                }
             }
         });
 
