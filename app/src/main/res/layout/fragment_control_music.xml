@@ -8,41 +8,41 @@
     >
 
     <ImageView
+        android:scaleType="fitXY"
+        android:padding="5dp"
         android:id="@+id/disk"
         android:src="@drawable/ic_cd"
         android:layout_width="50dp"
         android:layout_height="50dp" />
     <TextView
-        android:textColor="#B471C2"
+        android:padding="3dp"
+        android:textColor="#F3FFEA00"
         android:id="@+id/txt_name_song"
         android:layout_toRightOf="@id/disk"
-        android:text="Name Song"
-        android:layout_width="200dp"
+        android:text="   Name Song"
+        android:layout_width="250dp"
         android:layout_height="wrap_content" />
     <TextView
-        android:textColor="#9839AA"
+        android:id="@+id/txt_name_artist"
+        android:padding="3dp"
+        android:textColor="#F3FFEA00"
         android:layout_toRightOf="@id/disk"
         android:layout_below="@id/txt_name_song"
-        android:text="Name art"
-        android:layout_width="200dp"
+        android:text="   Name art"
+        android:layout_width="250dp"
         android:layout_height="wrap_content" />
+
     <ImageView
-        android:id="@+id/next"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_next"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
-    <ImageView
+        android:padding="7dp"
         android:id="@+id/button_stop_play"
-        android:layout_toLeftOf="@id/next"
-        android:src="@drawable/ic_stop"
         android:layout_width="50dp"
-        android:layout_height="50dp" />
-    <ImageView
-        android:id="@+id/button_previous"
-        android:layout_toLeftOf="@id/button_stop_play"
-        android:src="@drawable/ic_previous"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:src="@drawable/ic_play" />
 
 </RelativeLayout>
