@@ -10,12 +10,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.mediaplayer.R;
-import com.example.mediaplayer.activities.AlbumsActivity;
-import com.example.mediaplayer.activities.ArtistsActivity;
 import com.example.mediaplayer.activities.DownLoadActivity;
 import com.example.mediaplayer.activities.FavoritesActivity;
 import com.example.mediaplayer.activities.PlaylistActivity;
-import com.example.mediaplayer.activities.SongsActivity;
 
 
 public class MyMusicFragment extends Fragment {
