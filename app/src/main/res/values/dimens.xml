@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginTopImg">5dp</dimen>
+    <dimen name="marginLeftImg">10dp</dimen>
+    <dimen name="marginLeftTextview">20dp</dimen>
+    <dimen name="marginTopTextview">10dp</dimen>
+    <dimen name="marinLeftButton">25dp</dimen>
+    <dimen name="largTextSize">23sp</dimen>
+    <dimen name="smallTextSize">15sp</dimen>
+</resources>
