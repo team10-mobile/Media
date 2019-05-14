@@ -18,7 +18,6 @@ public class SongsAdapter extends BaseAdapter {
     private List<Songs> mSongList;
     private LayoutInflater mLayoutInflater;
 
-
     public SongsAdapter(Context mContext, int mLayout, List<Songs> mSongList) {
         this.mContext = mContext;
         this.mLayout = mLayout;
@@ -32,12 +31,12 @@ public class SongsAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mSongList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override

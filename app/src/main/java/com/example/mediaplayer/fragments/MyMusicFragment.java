@@ -23,6 +23,8 @@ public class MyMusicFragment extends Fragment {
     private LinearLayout mSongs, mPlaylist, mDownload, mFavorites, mArtist, mAlbums;
     private View mView;
     private Intent mIntent;
+
+    // mapping views
     private void mapping()
     {
         mSongs = mView.findViewById(R.id.songs);
@@ -32,7 +34,7 @@ public class MyMusicFragment extends Fragment {
         mArtist = mView.findViewById(R.id.artists);
         mAlbums = mView.findViewById(R.id.albums);
     }
-    // To do open
+    // open activities
     private void openLibrary()
     {
         mSongs.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +94,6 @@ public class MyMusicFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_my_music, container, false);
         mapping();
         openLibrary();
-        // Inflate the layout for this fragment
         return mView;
     }
 

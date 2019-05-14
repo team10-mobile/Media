@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:weightSum="10"
     android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     >
 
     <LinearLayout
@@ -16,12 +16,14 @@
         >
 
         <ImageView
+            android:id="@+id/search"
             android:src="@drawable/ic_search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             />
         <EditText
+            android:id="@+id/text_search"
             android:hint="Search for songs"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -29,6 +31,7 @@
             />
 
         <ImageView
+            android:id="@+id/scan"
             android:src="@drawable/ic_scan"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -38,6 +41,7 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/sort"
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:src="@drawable/ic_sort"

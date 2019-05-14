@@ -22,13 +22,13 @@ public class ModeMusicFragment extends Fragment {
     private MyMusicFragment mMyMusicFragment;
     private OnlineMusicFragment mOnlineMusicFragment;
 
-
+    // mapping view
     private void mapping()
     {
         mLocalMusic = mView.findViewById(R.id.local_music);
         mOnlineMusic = mView.findViewById(R.id.online_music);
     }
-
+    // change mode music: Local and Online
     private void changeModelMusic()
     {
         mLocalMusic.setOnClickListener(new View.OnClickListener() {

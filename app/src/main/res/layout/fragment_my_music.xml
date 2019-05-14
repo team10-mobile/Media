@@ -44,8 +44,20 @@
             <TextView
                 android:gravity="center"
                 android:textColor="#9C27B0"
+<<<<<<< HEAD
                 android:textSize="17dp"
                 android:text="Songs         "
+=======
+                android:textSize="15dp"
+                android:text="Songs"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+            <TextView
+                android:textSize="20dp"
+                android:text="80"
+                android:textColor="#AA29BE"
+>>>>>>> 732d68957acda5773f74ddf2c61ee14c2ca87654
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp" />
@@ -101,6 +113,11 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp" />
+<<<<<<< HEAD
+=======
+            <TextView
+                android:textColor="#9C27B0"
+>>>>>>> 732d68957acda5773f74ddf2c61ee14c2ca87654
 
         </LinearLayout>
 
@@ -153,6 +170,17 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp" />
+<<<<<<< HEAD
+=======
+            <TextView
+                android:textColor="#9C27B0"
+
+                android:textSize="20dp"
+                android:text="1"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+>>>>>>> 732d68957acda5773f74ddf2c61ee14c2ca87654
         </LinearLayout>
         <ImageView
             android:padding="25dp"
@@ -196,8 +224,21 @@
             <TextView
                 android:gravity="center"
                 android:textColor="#9C27B0"
+<<<<<<< HEAD
                 android:textSize="17dp"
                 android:text="Favorites  "
+=======
+                android:textSize="15dp"
+                android:text="Favorites"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+            <TextView
+                android:textColor="#9C27B0"
+
+                android:textSize="20dp"
+                android:text="1"
+>>>>>>> 732d68957acda5773f74ddf2c61ee14c2ca87654
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp" />
@@ -250,6 +291,11 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp" />
+<<<<<<< HEAD
+=======
+            <TextView
+                android:textColor="#9C27B0"
+>>>>>>> 732d68957acda5773f74ddf2c61ee14c2ca87654
 
         </LinearLayout>
         <ImageView
@@ -294,8 +340,21 @@
             <TextView
                 android:gravity="center"
                 android:textColor="#9C27B0"
+<<<<<<< HEAD
                 android:textSize="17dp"
                 android:text="Albums    "
+=======
+                android:textSize="15dp"
+                android:text="Albums"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+            <TextView
+                android:textColor="#9C27B0"
+
+                android:textSize="20dp"
+                android:text="1"
+>>>>>>> 732d68957acda5773f74ddf2c61ee14c2ca87654
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp" />
