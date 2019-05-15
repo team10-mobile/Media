@@ -1,23 +1,20 @@
 package com.example.mediaplayer.activities;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.database.Cursor;
-import android.net.Uri;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
-import com.example.mediaplayer.dataloader.SongLoader;
-import com.example.mediaplayer.models.Audio;
 import com.example.mediaplayer.service.MediaPlayerService;
 import com.example.mediaplayer.service.MusicPlayer;
 import com.example.mediaplayer.service.MusicStateListener;
@@ -38,7 +35,10 @@ public class BaseActivity extends AppCompatActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeService();
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+
+       // initializeService();
         registerBroadcast();
     }
 
@@ -66,9 +66,9 @@ public class BaseActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         if (serviceBound) {
-           unbindService(this);
+           //unbindService(this);
             //service is active
-            mediaPlayerService.stopSelf();
+           // mediaPlayerService.stopSelf();
         }
     }
 
@@ -118,6 +118,27 @@ public class BaseActivity extends AppCompatActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             onMetaChanged();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted and now can proceed
+                    initializeService(); //a sample method called
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+            // add other cases for more permissions
         }
     }
 }

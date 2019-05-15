@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.example.mediaplayer.models.Song;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class MediaPlayerService extends Service implements
@@ -22,9 +22,11 @@ public class MediaPlayerService extends Service implements
         MediaPlayer.OnErrorListener, MediaPlayer.OnSeekCompleteListener,
         MediaPlayer.OnInfoListener, MediaPlayer.OnBufferingUpdateListener {
 
-    public static final String MEDIA_IS_PLAYING ="MEDIA_IS_PLAYING";
+    public static final String UPDATE_PREFERENCES = "updatepreferences";
 
-    public static final String MEDIA_IS_STOP ="MEDIA_IS_STOP";
+    public static final String MEDIA_IS_PLAYING = "MEDIA_IS_PLAYING";
+
+    public static final String MEDIA_IS_STOP = "MEDIA_IS_STOP";
 
     public static final int SHUFFLE_NONE = 0;
 
@@ -38,6 +40,10 @@ public class MediaPlayerService extends Service implements
 
     public static final int REPEAT_ALL = 2;
 
+    private int mShuffleMode = SHUFFLE_NONE;
+
+    private int mRepeatMode = REPEAT_NONE;
+
     private MediaPlayer mediaPlayer;
 
     private final IBinder binder = new LocalBinder();
@@ -45,13 +51,14 @@ public class MediaPlayerService extends Service implements
     // Được sử dụng để tạm dừng / tiếp tục MediaPlayer
     private int resumePosition;
 
-    private int songPositionCurrent = 0;
+    private int currentPosOfSong = 0;
 
     private Song songCurrent;
 
-    private ArrayList<Song> songs = null;
+    private ArrayList<Song> listAllSongs = null;
 
-    private  boolean mIsInitialized = false;
+    private boolean mIsInitialized = false;
+
     @Override
     public IBinder onBind(Intent intent) {
         return this.binder;
@@ -72,8 +79,34 @@ public class MediaPlayerService extends Service implements
     @Override
     public void onCompletion(MediaPlayer mp) {
         // Được gọi khi phát lại nguồn phương tiện đã hoàn thành.
-        stopMedia();
+        if(mShuffleMode == SHUFFLE_NORMAL){
+            playRandom();
+        }
+        else if(mRepeatMode == REPEAT_NONE){
+            stopMedia();
+            resetMedia();
+            senBroadcastToUpdateMusicState();
+        }else if(mRepeatMode == REPEAT_CURRENT){
+            playCurrent();
+        }else if(mRepeatMode == REPEAT_ALL){
+            next();
+        }
 
+    }
+
+    private void playCurrent(){
+        resetMedia();
+        setDataForMedia();
+        mediaPlayer.prepareAsync();
+    }
+
+    private void playRandom(){
+        if(listAllSongs==null)return;
+        if(listAllSongs.size()<=0) return;
+        Random  rd = new Random();
+        int pos = rd.nextInt(listAllSongs.size());
+        currentPosOfSong = pos;
+        next();
     }
 
     @Override
@@ -120,7 +153,7 @@ public class MediaPlayerService extends Service implements
 
     @Override
     public boolean onUnbind(Intent intent) {
-        if(mediaPlayer!=null) {
+        if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.release();
             return false;
@@ -132,7 +165,7 @@ public class MediaPlayerService extends Service implements
      * Hàm khởi tạo và đăng kí sự kiện cho media player
      */
     public void initMediaPlayer() {
-        if(mediaPlayer!=null) return;
+        if (mediaPlayer != null) return;
         mediaPlayer = new MediaPlayer();
         // Thiết lập trình nghe sự kiện MediaPlayer
         mediaPlayer.setOnCompletionListener(this);
@@ -160,41 +193,39 @@ public class MediaPlayerService extends Service implements
             mediaPlayer.reset();
         }
 
-        if(isPausing){
+        if (isPausing) {
             mediaPlayer.start();
             isPausing = false;
             return;
         }
 
-        setDataForMedia();
+        if(!setDataForMedia()){
+            Toast.makeText(context,"File not found, playing next !",Toast.LENGTH_SHORT).show();
+            return;
+        }
         mediaPlayer.prepareAsync();
     }
 
-    public  void setDataForMedia(){
+    public boolean setDataForMedia() {
         long currSong = songCurrent.id;
-        Uri trackUri = ContentUris.withAppendedId(
-                android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                currSong);
+        Uri trackUri = ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, currSong);
         try {
             mediaPlayer.setDataSource(getApplicationContext(), trackUri);
+            return true;
         } catch (Exception e) {
-            //NOTE
-            try {
-                mediaPlayer.setDataSource(String.valueOf(songCurrent.uri));
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
             Log.e("MUSIC SERVICE", "Error setting data source", e);
+            return false;
         }
     }
 
-    public void resetMedia(){
-        if(mediaPlayer!=null){
+    public void resetMedia() {
+        if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.reset();
             isPausing = false;
         }
     }
+
     public void stopMedia() {
         if (mediaPlayer == null) return;
         if (mediaPlayer.isPlaying()) {
@@ -230,51 +261,131 @@ public class MediaPlayerService extends Service implements
         }
     }
 
-    //Set media file cho MediaPlayer
-    public void setMediaFile(Song song){
+    //Set media file cho MediaPlaer
+    public void setMediaFile(Song song) {
         this.songCurrent = song;
     }
 
     //Trả về bài hát đang được phát hiện tại
-    public Song getSongCurrent(){
+    public Song getSongCurrent() {
         return songCurrent;
     }
 
-    public void setSongPositionCurrent(int positionCurrent){
-        this.songPositionCurrent = positionCurrent;
+    public void setSongPositionCurrent(int positionCurrent) {
+        this.currentPosOfSong = positionCurrent;
     }
 
-    public int getSongPositionCurrent(){
-        return  songPositionCurrent;
+    public int getSongPositionCurrent() {
+        return currentPosOfSong;
     }
 
-    public long getSongId(){
-        if(songCurrent != null)return  songCurrent.id;
+    public long getSongId() {
+        if (songCurrent != null) return songCurrent.id;
         return -1;
     }
 
-    public boolean isPlaying(){
-        if(mediaPlayer != null) return mediaPlayer.isPlaying();
+    public boolean isPlaying() {
+        if (mediaPlayer != null) return mediaPlayer.isPlaying();
         return false;
     }
 
-    private void play(){
+    private void play() {
+        if(mediaPlayer!=null)
         mediaPlayer.start();
     }
 
-    public void setSongs(ArrayList<Song> songs){
-        this.songs = songs;
+    public void setSongs(ArrayList<Song> songs) {
+        this.listAllSongs = songs;
     }
 
-    public void setDefaultSong(){
-        if(songs != null){
-            songCurrent = songs.get(songPositionCurrent);
+    public void setDefaultSong() {
+        if (listAllSongs != null) {
+            songCurrent = listAllSongs.get(currentPosOfSong);
         }
     }
 
-    public void senBroadcastToUpdateMusicState(){
+    public void senBroadcastToUpdateMusicState() {
         Intent intent = new Intent();
         intent.setAction("metaChanged.Broadcast");
         sendBroadcast(intent);
     }
+
+    public long duration() {
+        if (mediaPlayer != null)
+            return mediaPlayer.getCurrentPosition();
+        return 0;
+    }
+
+    public long seek(int position) {
+        if (mediaPlayer != null) {
+            mediaPlayer.seekTo(position);
+            return position;
+        }
+        return 0;
+    }
+
+    public long seek(long position) {
+        if (position < 0) {
+            position = 0;
+        } else if (position > mediaPlayer.getDuration()) {
+            position = mediaPlayer.getDuration();
+        }
+        long result = seek(position);
+        //notifyChange(POSITION_CHANGED);
+        return result;
+    }
+
+    public void next() {
+        if (listAllSongs == null )return;
+        if(listAllSongs.size() <= 0) return;
+        int pos = currentPosOfSong;
+        pos++;
+        if (pos > listAllSongs.size() - 1) {
+            pos = 0;
+        }
+       updatePosition(pos);
+    }
+
+    public void previous() {
+        if (listAllSongs == null )return;
+        if(listAllSongs.size() <= 0) return;
+        int pos = currentPosOfSong;
+        pos--;
+        if (pos < 0) {
+            pos = listAllSongs.size() - 1;
+        }
+       updatePosition(pos);
+    }
+
+    private void updatePosition(int pos){
+        currentPosOfSong = pos;
+        songCurrent = listAllSongs.get(pos);
+
+        resetMedia();
+        if(!setDataForMedia())return;
+        mediaPlayer.prepareAsync();
+        senBroadcastToUpdateMusicState();
+    }
+
+    public int getRepeatMode() {
+        return mRepeatMode;
+    }
+
+    public void setRepeatMode(int repeatmode) {
+        synchronized (this) {
+            mRepeatMode = repeatmode;
+        }
+    }
+
+    public int getShuffleMode() {
+        return mShuffleMode;
+    }
+
+    public void setmShuffleMode(int shuffleMode) {
+        synchronized (this) {
+            mShuffleMode = shuffleMode;
+        }
+    }
+
+
 }

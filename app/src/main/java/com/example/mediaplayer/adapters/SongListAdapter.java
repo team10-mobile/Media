@@ -81,8 +81,9 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
     @Override
     public void onBindViewHolder(@NonNull ItemHolder itemHolder, int i) {
         Song song = arraylist.get(i);
-        itemHolder.title.setText(song.title);
-        itemHolder.artist.setText(song.artistName);
+            itemHolder.title.setText(song.title);
+            itemHolder.artist.setText(song.artistName);
+
 
         //Hiệu ứng chuyển động trên  item khi item này đang được chọn(phát)
        if(MusicPlayer.getCurrentSongId() == song.id) {
@@ -193,5 +194,9 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
+    }
+
+    public void setPlaylistId(long playlistId) {
+        this.playlistId = playlistId;
     }
 }
