@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.mediaplayer.models.Song;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -177,6 +178,12 @@ public class MediaPlayerService extends Service implements
         try {
             mediaPlayer.setDataSource(getApplicationContext(), trackUri);
         } catch (Exception e) {
+            //NOTE
+            try {
+                mediaPlayer.setDataSource(String.valueOf(songCurrent.uri));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             Log.e("MUSIC SERVICE", "Error setting data source", e);
         }
     }
@@ -223,7 +230,7 @@ public class MediaPlayerService extends Service implements
         }
     }
 
-    //Set media file cho MediaPlaer
+    //Set media file cho MediaPlayer
     public void setMediaFile(Song song){
         this.songCurrent = song;
     }
