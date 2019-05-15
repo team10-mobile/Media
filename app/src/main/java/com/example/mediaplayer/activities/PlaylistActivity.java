@@ -11,6 +11,7 @@ import com.example.mediaplayer.R;
 public class PlaylistActivity extends AppCompatActivity {
 
     private ImageButton mAddNamePlaylist;
+
     private ListView mListPlaylist;
 
     // mapping

@@ -10,6 +10,8 @@ import com.example.mediaplayer.models.Song;
 import com.example.mediaplayer.service.MusicPlayer;
 import com.example.mediaplayer.utils.MusicUtils;
 
+import java.util.List;
+
 public class BaseSongAdapter<T extends  RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
 
     @NonNull
@@ -33,4 +35,8 @@ public class BaseSongAdapter<T extends  RecyclerView.ViewHolder> extends Recycle
                         boolean shuffleMode){
         MusicPlayer.playAll(context,position,sourceType,song,shuffleMode);
     }
+
+    public void removeSongAt(int i){}
+    public void updateDataSet(List<Song> arraylist) {}
+
 }

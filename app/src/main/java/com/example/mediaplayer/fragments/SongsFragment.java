@@ -39,6 +39,7 @@ public class SongsFragment extends Fragment implements MusicStateListener {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         ((BaseActivity)getActivity()).setMusicStateListener(this);
+
         //Chạy bất đồng bộ để list tất cả bài hát từ storage của máy
         new LoadSongs().execute("");
         return view;
@@ -59,8 +60,7 @@ public class SongsFragment extends Fragment implements MusicStateListener {
         //Khi service gửi broadcast thì thì base activity nhận được thông, và nó thông  báo
         //cập nhật thay đổi trạng thái bài hát đến tất cả fragment
 
-        if(mAdapter != null)
-            mAdapter.notifyDataSetChanged();
+        if(mAdapter != null) mAdapter.notifyDataSetChanged();
     }
 
 

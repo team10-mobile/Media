@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +21,11 @@ import android.widget.TextView;
 import com.example.mediaplayer.R;
 import com.example.mediaplayer.activities.BaseActivity;
 import com.example.mediaplayer.dataloader.SongLoader;
+import com.example.mediaplayer.dialogs.AddPlaylistDialog;
 import com.example.mediaplayer.models.Song;
 import com.example.mediaplayer.service.MusicPlayer;
 import com.example.mediaplayer.utils.MusicUtils;
+import com.example.mediaplayer.utils.NavigationUtils;
 import com.example.mediaplayer.widgets.MusicVisualizer;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -53,7 +56,8 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
     private long playlistId;//Id của playlist
 
 
-    public SongListAdapter(AppCompatActivity context, List<Song> arraylist, boolean isPlaylistSong, boolean animate) {
+    public SongListAdapter(AppCompatActivity context, List<Song> arraylist,
+                           boolean isPlaylistSong, boolean animate) {
         this.arraylist = arraylist;
         this.mContext = context;
         this.isPlaylist = isPlaylistSong;
@@ -66,11 +70,13 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         if (isPlaylist) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_song_playlist, null);
+            View v = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.item_song_playlist, null);
             ItemHolder ml = new ItemHolder(v);
             return ml;
         } else {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_song, null);
+            View v = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.item_song, null);
             ItemHolder ml = new ItemHolder(v);
             return ml;
         }
@@ -110,7 +116,7 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
     }
 
     //Hiển thị popup menu khi nhấn vào biểu tượng ic_more_vertical trên item và bắt sự kiện cho nó
-    private void setOnPopupMenuListener(ItemHolder itemHolder,final int postion){
+    private void setOnPopupMenuListener(final ItemHolder itemHolder, final int postion){
         itemHolder.popupMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +124,43 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
               popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                   @Override
                   public boolean onMenuItemClick(MenuItem item) {
+                      switch (item.getItemId()){
+
+                          case R.id.popup_song_play:
+                              MusicPlayer.playAll(mContext,
+                                      postion,
+                                      MusicUtils.IdType.NA,
+                                      arraylist.get(postion),
+                                      false);
+                              break;
+
+                          case R.id.popup_song_goto_album:
+                              NavigationUtils.navigateToAlbum(mContext,
+                                      arraylist.get(postion).albumId,
+                                      new Pair<View, String>(itemHolder.albumArt,
+                                              "transition_album_art" + postion));
+                              break;
+
+                          case R.id.popup_song_goto_artist:
+                              NavigationUtils.navigateToArtist(mContext,
+                                      arraylist.get(postion).artistId,
+                                      new Pair<View, String>(itemHolder.albumArt,
+                                              "transition_artist_art" + postion));
+                              break;
+                          case R.id.popup_song_delete:
+                              long[] deleteIds = {arraylist.get(postion).id};
+                              MusicUtils.showDeleteDialog(mContext,arraylist.get(postion).title,
+                                      deleteIds,
+                                      SongListAdapter.this,
+                                      postion);
+                              break;
+
+                          case R.id.popup_song_addto_playlist:
+                              AddPlaylistDialog.newInstance(arraylist.get(postion))
+                                      .show(mContext.getSupportFragmentManager(),
+                                      "ADD_PLAYLIST");
+                              break;
+                      }
                       return false;
                   }
               });
@@ -198,5 +241,11 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
 
     public void setPlaylistId(long playlistId) {
         this.playlistId = playlistId;
+    }
+
+    @Override
+    public void removeSongAt(int i) {
+        arraylist.remove(i);
+        updateDataSet(arraylist);
     }
 }

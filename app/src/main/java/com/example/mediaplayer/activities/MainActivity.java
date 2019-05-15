@@ -170,23 +170,11 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.scan, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    // TO DO:     click scan songs in local
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.button_scan_songs:
-                // code scan song here
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     private void setEventForUI() {
-
         //Bắt sự kiện cho button play
         play.setOnClickListener(new View.OnClickListener() {
             @Override

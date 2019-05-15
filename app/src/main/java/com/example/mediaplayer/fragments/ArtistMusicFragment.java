@@ -2,6 +2,7 @@ package com.example.mediaplayer.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -63,7 +64,7 @@ public class ArtistMusicFragment extends Fragment {
         //there will be albums header at this position in recyclerview
         songList.add(0, new Song(-1, -1, -1, "dummy", "dummy", "dummy", -1, -1));
 
-        mSongAdapter = new ArtistSongAdapter(getActivity(), songList, artistID);
+        mSongAdapter = new ArtistSongAdapter((AppCompatActivity)getActivity(), songList, artistID);
         songsRecyclerview.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         songsRecyclerview.setAdapter(mSongAdapter);
     }

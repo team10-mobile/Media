@@ -40,12 +40,19 @@ import java.util.List;
 public class ArtistDetailFragment extends Fragment {
 
     private long artistID = -1;
+
     private ImageView artistArt;//Hình ảnh trong AppBarLayout
+
     private AppCompatActivity mContext;
+
     private Toolbar toolbar;
+
     private CollapsingToolbarLayout collapsingToolbarLayout;
+
     private AppBarLayout appBarLayout;
+
     private ArtistSongAdapter mAdapter;
+
     private Context context;
 
     public static ArtistDetailFragment newInstance(long id, boolean useTransition, String transitionName) {
@@ -107,7 +114,7 @@ public class ArtistDetailFragment extends Fragment {
 
          //2 cái này để dùng trong sự kiện click popup, để di chuyển tới playlist
         List<Song> songList = ArtistSongLoader.getSongsForArtist(getActivity(), artistID);
-        mAdapter = new ArtistSongAdapter(getActivity(), songList, artistID);
+        mAdapter = new ArtistSongAdapter((AppCompatActivity)getActivity(), songList, artistID);
 
         collapsingToolbarLayout.setTitle(artist.name);
     }
