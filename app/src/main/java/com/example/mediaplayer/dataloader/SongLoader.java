@@ -3,6 +3,7 @@ package com.example.mediaplayer.dataloader;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 
 import com.example.mediaplayer.models.Song;
 
@@ -38,10 +39,24 @@ public class SongLoader {
     }
 
     //Trả về một cursor trở đến một bảng chứa tất cả bài hát trong máy
-    public static Cursor makeSongCursor(Context context, String selection, String[] paramArrayOfString) {
+    public static Cursor makeSongCursor(Context context, String selection, String[] paramArrayOfString){
+         String songSortOrder = null;//Ngay cho nay can sap xep bai hat thi xay dung framework them
+        return makeSongCursor(context, selection, paramArrayOfString, songSortOrder);
+    }
+
+
+    private static Cursor makeSongCursor(Context context, String selection, String[] paramArrayOfString, String sortOrder) {
+        String selectionStatement = "is_music=1 AND title != ''";
+        //Chuoi khac rong
+        if (!TextUtils.isEmpty(selection)) {
+            selectionStatement = selectionStatement + " AND " + selection;
+        }
+
+        //
         return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[]{"_id", "title", "artist", "album", "duration", "track", "artist_id", "album_id"},
-                null, paramArrayOfString, null);
+                selectionStatement, paramArrayOfString, sortOrder);
+
     }
 
     public static Cursor getCursorData(Context context){

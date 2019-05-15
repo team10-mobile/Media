@@ -8,14 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.mediaplayer.R;
-import com.example.mediaplayer.activities.AlbumsActivity;
-import com.example.mediaplayer.activities.ArtistsActivity;
 import com.example.mediaplayer.activities.DownLoadActivity;
 import com.example.mediaplayer.activities.FavoritesActivity;
 import com.example.mediaplayer.activities.PlaylistActivity;
-import com.example.mediaplayer.activities.SongsActivity;
 
 
 public class MyMusicFragment extends Fragment {
@@ -47,11 +45,18 @@ public class MyMusicFragment extends Fragment {
                 fragmentTransaction.replace(R.id.frame_music_contains,fragment).commitAllowingStateLoss();
             }
         });
+
         mPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIntent = new Intent(getActivity(), PlaylistActivity.class);
-                startActivity(mIntent);
+                /*mIntent = new Intent(getActivity(), PlaylistActivity.class);
+                startActivity(mIntent);*/
+                Toast.makeText(getActivity(),"PLAY LIST",Toast.LENGTH_SHORT).show();
+                Fragment fragment = new PlaylistFragment();
+                FragmentTransaction transaction =
+                        getActivity().getSupportFragmentManager().beginTransaction();
+                //transaction.hide(getActivity().getSupportFragmentManager().findFragmentById(R.id.frame_music_contains));
+                transaction.replace(R.id.frame_music_contains, fragment).commitAllowingStateLoss();
             }
         });
         mDownload.setOnClickListener(new View.OnClickListener() {

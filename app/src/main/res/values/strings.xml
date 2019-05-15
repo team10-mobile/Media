@@ -5,6 +5,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="songs">Songs</string>
+    <string name="playlists">Playlists</string>
+
     <string name="play">Play</string>
     <string name="add_to_playlist">Add to playlist</string>
     <string name="go_to_album">Go to album</string>
@@ -25,4 +28,18 @@
     <string name="count_albums"><xliff:g id="count">%d</xliff:g> albums</string>
     <string name="count_artist"><xliff:g id="count">%d</xliff:g> artist</string>
     <string name="count_artists"><xliff:g id="count">%d</xliff:g> artists</string>
+
+    <string name="number_song_add_queue"><xliff:g example="1" id="number">%d</xliff:g> song added to the queue.</string>
+    <string name="number_songs_add_queue"><xliff:g example="1" id="number">%d</xliff:g> songs added to the queue.</string>
+    <string name="number_song_add_playlist"><xliff:g example="1" id="number">%d</xliff:g> song added to playlist.</string>
+    <string name="number_songs_add_playlist"><xliff:g example="1" id="number">%d</xliff:g> songs added to playlist.</string>
+
+    <string name="playlist_last_added">Last Added</string>
+    <string name="playlist_recently_played">Recently Played</string>
+
+    <string name="menu_show_as">View As</string>
+    <string name="menu_show_as_entry_list">List</string>
+    <string name="menu_show_as_entry_grid">Grid</string>
+    <string name="menu_show_as_entry_default">Default</string>
+
 </resources>

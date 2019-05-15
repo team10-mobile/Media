@@ -36,8 +36,8 @@ public class PlaySongsActivity extends AppCompatActivity {
         mTimeOff = findViewById(R.id.time_off);
         mAddPlaylist = findViewById(R.id.choose_playlist);
         mComeBack = findViewById(R.id.comeback);
-        mPreviousSong = findViewById(R.id.previous_song);
-        mNextSong = findViewById(R.id.next_song);
+      //  mPreviousSong = findViewById(R.id.previous_song);
+       // mNextSong = findViewById(R.id.next_song);
     }
 
     @Override

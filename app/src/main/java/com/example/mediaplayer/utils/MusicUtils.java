@@ -1,14 +1,23 @@
 package com.example.mediaplayer.utils;
 
+import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.BaseColumns;
+import android.provider.MediaStore;
 
 import com.example.mediaplayer.R;
+import com.example.mediaplayer.provider.RecentStore;
 
 public class MusicUtils {
+
+    public static final String MUSIC_ONLY_SELECTION = MediaStore.Audio.AudioColumns.IS_MUSIC + "=1"
+            + " AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''";
 
     //Trả về đường dòng tới ảnh từ external
     public static Uri getAlbumArtUri(long albumId) {
@@ -62,6 +71,28 @@ public class MusicUtils {
         }
     }
 
+    public enum PlaylistType {
+        LastAdded(-1, R.string.playlist_last_added),
+        RecentlyPlayed(-2, R.string.playlist_recently_played);
+
+        public long mId;
+        public int mTitleId;
+
+        PlaylistType(long id, int titleId) {
+            mId = id;
+            mTitleId = titleId;
+        }
+
+        public static PlaylistType getTypeById(long id) {
+            for (PlaylistType type : PlaylistType.values()) {
+                if (type.mId == id) {
+                    return type;
+                }
+            }
+            return null;
+        }
+    }
+
     public static final String makeLabel(final Context context, final int pluralInt,
                                          final int number) {
         return context.getResources().getQuantityString(pluralInt, number, number);
@@ -72,4 +103,64 @@ public class MusicUtils {
         final String formatter = context.getResources().getString(R.string.combine_two_strings);
         return String.format(formatter, first, second);
     }
+
+    public static final int getSongCountForPlaylist(final Context context, final long playlistId) {
+        Cursor c = context.getContentResolver().query(
+                MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
+                new String[]{BaseColumns._ID}, MUSIC_ONLY_SELECTION, null, null);
+
+        if (c != null) {
+            int count = 0;
+            if (c.moveToFirst()) {
+                count = c.getCount();
+            }
+            c.close();
+            c = null;
+            return count;
+        }
+
+        return 0;
+    }
+
+    /**
+     * @param context The {@link Context} to use.
+     * @param name    The name of the new playlist.
+     * @return A new playlist ID.
+     */
+    public static final long createPlaylist(final Context context, final String name) {
+        if (name != null && name.length() > 0) {
+            final ContentResolver resolver = context.getContentResolver();
+            final String[] projection = new String[]{
+                    MediaStore.Audio.PlaylistsColumns.NAME
+            };
+            final String selection = MediaStore.Audio.PlaylistsColumns.NAME + " = '" + name + "'";
+            Cursor cursor = resolver.query(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
+                    projection, selection, null, null);
+            if (cursor.getCount() <= 0) {
+                final ContentValues values = new ContentValues(1);
+                values.put(MediaStore.Audio.PlaylistsColumns.NAME, name);
+                final Uri uri = resolver.insert(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
+                        values);
+                return Long.parseLong(uri.getLastPathSegment());
+            }
+            if (cursor != null) {
+                cursor.close();
+                cursor = null;
+            }
+            return -1;
+        }
+        return -1;
+    }
+
+
+    public static void clearLastAdded(Context context) {
+        PreferencesUtility.getInstance(context)
+                .setLastAddedCutoff(System.currentTimeMillis());
+    }
+
+    public static void clearRecent(Context context) {
+        RecentStore.getInstance(context).deleteAll();
+    }
+
+
 }

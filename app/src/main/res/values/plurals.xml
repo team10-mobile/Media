@@ -12,4 +12,9 @@
         <item quantity="one">@string/count_album</item>
         <item quantity="other">@string/count_albums</item>
     </plurals>
+
+    <plurals name="NNNtrackstoplaylist">
+        <item quantity="one">@string/number_song_add_playlist</item>
+        <item quantity="other">@string/number_songs_add_playlist</item>
+    </plurals>
 </resources>

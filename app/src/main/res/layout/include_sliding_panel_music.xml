@@ -7,12 +7,13 @@
     >
 
     <ImageView
-        android:src="@drawable/songs_cover"
+        android:src="@drawable/bgr_music_control"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:scaleType="centerCrop"
         android:clickable="false"
         android:layout_height="match_parent" />
+
 
     <LinearLayout
         android:id="@+id/toolbar_layout"
@@ -24,6 +25,7 @@
         android:gravity="center">
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -32,9 +34,9 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/songs_cover"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/img_song_cover"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -45,10 +47,10 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="202dp"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
@@ -61,16 +63,16 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:lines="1"
-                    android:text="Havana (Camila Cabello song)"
+                    android:text="Những album bất hủ"
                     android:textColor="@color/tectColor"
-                    android:textSize="22dp" />
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/songs_artist_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="1"
-                    android:text="Camila Cabello" />
+                    android:text="Trịnh Công Sơn" />
 
             </LinearLayout>
 
@@ -78,10 +80,10 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -92,21 +94,23 @@
                 <ImageButton
                     android:id="@+id/play_button"
                     android:layout_width="50dp"
-                    android:scaleType="centerInside"
-                    android:clickable="true"
-                    android:focusable="true"
                     android:layout_height="50dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
                     android:src="@drawable/round_play_arrow_black_48dp" />
 
                 <ImageButton
                     android:id="@+id/pause_button"
                     android:layout_width="50dp"
-                    android:scaleType="centerInside"
                     android:layout_height="50dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
                     android:src="@drawable/round_pause_black_48dp"
                     android:visibility="gone" />
             </LinearLayout>
@@ -119,42 +123,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true">
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="-2dp">
 
-        <ImageButton
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/baseline_repeat_white_48dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/img_song_cover"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.023"
+            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.811" />
+            app:layout_constraintVertical_bias="0.465" />
 
-        <ImageButton
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/baseline_shuffle_white_48dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.976"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.811" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
@@ -180,94 +172,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:padding="15dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="16dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/outline_thumb_up_alt_black_48"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/StartTime"
-                    app:layout_constraintVertical_bias="0.56"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="8dp" />
-                <ImageButton
-                    android:id="@+id/imageButton2new"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:padding="15dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="16dp"
-                    android:visibility="gone"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:scaleType="centerCrop"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@mipmap/baseline_thumb_up_alt_black_48"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/StartTime"
-                    app:layout_constraintVertical_bias="0.56"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginLeft="16dp" />
-                <ImageButton
-                    android:id="@+id/button"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:padding="15dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="8dp"
-                    android:scaleType="centerCrop"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@mipmap/outline_thumb_down_alt_black_48"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/endTime"
-                    app:layout_constraintVertical_bias="0.56"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="8dp" />
-                <ImageButton
-                    android:id="@+id/buttontwo"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:padding="15dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="8dp"
-                    android:visibility="gone"
-                    android:scaleType="centerCrop"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@mipmap/baseline_thumb_down_alt_black_48"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/endTime"
-                    app:layout_constraintVertical_bias="0.56"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="8dp" />
                 <TextView
-                    android:id="@+id/StartTime"
+                    android:id="@+id/startTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -275,7 +181,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif"
-                    android:text="1:05"
+                    android:text="0:00"
                     android:textColor="@color/songTimerColor"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -329,6 +235,7 @@
                         android:focusable="true"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:src="@drawable/play_button" />
+
                     <ImageButton
                         android:id="@+id/pause_button_main"
                         android:layout_width="55dp"
@@ -342,46 +249,136 @@
                 </LinearLayout>
 
                 <ImageButton
+                    android:id="@+id/btnPrevious"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="15dp"
                     android:clickable="true"
                     android:focusable="true"
+                    android:padding="15dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/backword_button"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
-                    app:layout_constraintHorizontal_bias="0.754"
-                    app:layout_constraintStart_toEndOf="@+id/imageButton2"
+                    app:layout_constraintHorizontal_bias="0.944"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0" />
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/btnForward"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="15dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/forword_button"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/button"
-                    app:layout_constraintHorizontal_bias="0.25"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.084"
                     app:layout_constraintStart_toEndOf="@+id/linearLayout5"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    />
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <ImageButton
+                    android:id="@+id/btnShuffleOff"
+                    android:layout_width="26dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_shuffle_off"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.856"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageButton
+                    android:visibility="gone"
+                    android:id="@+id/btnShuffleOn"
+                    android:layout_width="26dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_shuffle_on"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.856"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnRepeat"
+                    android:layout_width="26dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_repeat_off"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.135"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageButton
+                    android:visibility="gone"
+                    android:id="@+id/btnRepeatAll"
+                    android:layout_width="26dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_repeat_all"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.135"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnRepeatOne"
+                    android:visibility="gone"
+                    android:layout_width="26dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_repeat_one"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.135"
+                    app:layout_constraintStart_toStartOf="parent" />
             </android.support.constraint.ConstraintLayout>
         </RelativeLayout>
 
@@ -397,4 +394,5 @@
             app:layout_constraintTop_toTopOf="@+id/relativeLayout"
             app:layout_constraintVertical_bias="0.75" />
     </android.support.constraint.ConstraintLayout>
+
 </RelativeLayout>
