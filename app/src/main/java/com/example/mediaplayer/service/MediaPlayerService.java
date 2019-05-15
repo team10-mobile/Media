@@ -11,9 +11,11 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.mediaplayer.models.Artist;
 import com.example.mediaplayer.models.Song;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -56,6 +58,8 @@ public class MediaPlayerService extends Service implements
     private Song songCurrent;
 
     private ArrayList<Song> listAllSongs = null;
+
+    private List<Artist> listAllArtists= null;
 
     private boolean mIsInitialized = false;
 
@@ -298,6 +302,10 @@ public class MediaPlayerService extends Service implements
         this.listAllSongs = songs;
     }
 
+    public void setArtists(List<Artist> artists) {
+        this.listAllArtists = artists;
+    }
+
     public void setDefaultSong() {
         if (listAllSongs != null) {
             songCurrent = listAllSongs.get(currentPosOfSong);
@@ -387,5 +395,8 @@ public class MediaPlayerService extends Service implements
         }
     }
 
+    public void refresh(){
+        senBroadcastToUpdateMusicState();
+    }
 
 }

@@ -1,9 +1,9 @@
 package com.example.mediaplayer.adapters;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,19 +13,23 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.mediaplayer.R;
+import com.example.mediaplayer.dialogs.AddPlaylistDialog;
 import com.example.mediaplayer.models.Song;
+import com.example.mediaplayer.service.MusicPlayer;
 import com.example.mediaplayer.utils.MusicUtils;
+import com.example.mediaplayer.utils.NavigationUtils;
 
 import java.util.List;
 
+//Lop xem chi tiet co bai hat co trong album
 public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHolder> {
 
     private List<Song> arraylist;
-    private Activity mContext;
+    private AppCompatActivity mContext;
     private long albumID;
     private long[] songIDs;
 
-    public AlbumSongsAdapter(Activity context, List<Song> arraylist, long albumID) {
+    public AlbumSongsAdapter(AppCompatActivity context, List<Song> arraylist, long albumID) {
         this.arraylist = arraylist;
         this.mContext = context;
         this.songIDs = getSongIds();
@@ -52,7 +56,7 @@ public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHol
         setOnPopupMenuListener(itemHolder, i);
     }
 
-    private void setOnPopupMenuListener(ItemHolder itemHolder, final int position) {
+    private void setOnPopupMenuListener(final ItemHolder itemHolder, final int position) {
         itemHolder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +64,43 @@ public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHol
                 menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+
+                            case R.id.popup_song_play:
+                                MusicPlayer.playAll(mContext,
+                                        position,
+                                        MusicUtils.IdType.NA,
+                                        arraylist.get(position),
+                                        false);
+                                break;
+
+                            case R.id.popup_song_goto_album:
+                                NavigationUtils.navigateToAlbum(mContext,
+                                        arraylist.get(position).albumId,
+                                        new Pair<View, String>(itemHolder.menu,
+                                                "transition_album_art" + position));
+                                break;
+
+                            case R.id.popup_song_goto_artist:
+                                NavigationUtils.navigateToArtist(mContext,
+                                        arraylist.get(position).artistId,
+                                        new Pair<View, String>(itemHolder.menu,
+                                                "transition_artist_art" + position));
+                                break;
+                            case R.id.popup_song_delete:
+                                long[] deleteIds = {arraylist.get(position).id};
+                                MusicUtils.showDeleteDialog(mContext,arraylist.get(position).title,
+                                        deleteIds,
+                                        AlbumSongsAdapter.this,
+                                        position);
+                                break;
+
+                            case R.id.popup_song_addto_playlist:
+                                AddPlaylistDialog.newInstance(arraylist.get(position))
+                                        .show(mContext.getSupportFragmentManager(),
+                                                "ADD_PLAYLIST");
+                                break;
+                        }
                         return false;
                     }
                 });
@@ -89,15 +130,29 @@ public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHol
 
         public ItemHolder(View view) {
             super(view);
-            this.title = (TextView) view.findViewById(R.id.song_title);
-            this.duration = (TextView) view.findViewById(R.id.song_duration);
-            this.trackNumber = (TextView) view.findViewById(R.id.trackNumber);
-            this.menu = (ImageView) view.findViewById(R.id.popup_menu);
+            this.title = view.findViewById(R.id.song_title);
+            this.duration = view.findViewById(R.id.song_duration);
+            this.trackNumber =  view.findViewById(R.id.trackNumber);
+            this.menu = view.findViewById(R.id.popup_menu);
             view.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    playAll(mContext, getAdapterPosition(),
+                            MusicUtils.IdType.NA, arraylist.get(getAdapterPosition()), false);
+                }
+            }, 100);
         }
+    }
+
+    @Override
+    public void removeSongAt(int i){
+        arraylist.remove(i);
+        updateDataSet(arraylist);
     }
 }

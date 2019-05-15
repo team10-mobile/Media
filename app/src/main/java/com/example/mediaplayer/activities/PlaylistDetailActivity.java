@@ -42,6 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PlaylistDetailActivity extends AppCompatActivity implements MusicStateListener {
+
     private String action;
     private long playlistID;
     private HashMap<String, Runnable> playlistsMap = new HashMap<>();
@@ -85,6 +86,7 @@ public class PlaylistDetailActivity extends AppCompatActivity implements MusicSt
         action = getIntent().getAction();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -94,9 +96,9 @@ public class PlaylistDetailActivity extends AppCompatActivity implements MusicSt
         playlistsMap.put(Constants.NAVIGATE_PLAYLIST_RECENT, playlistRecents);
         playlistsMap.put(Constants.NAVIGATE_PLAYLIST_USERCREATED, playlistUsercreated);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        blurFrame = (ImageView) findViewById(R.id.blurFrame);
-        playlistname = (TextView) findViewById(R.id.name);
+        recyclerView = findViewById(R.id.recyclerview);
+        blurFrame =  findViewById(R.id.blurFrame);
+        playlistname =  findViewById(R.id.name);
         foreground = findViewById(R.id.foreground);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -122,9 +124,6 @@ public class PlaylistDetailActivity extends AppCompatActivity implements MusicSt
         Runnable navigation = playlistsMap.get(action);
         if (navigation != null) {
             navigation.run();
-
-        } else {
-            Log.d("PlaylistDetail", "mo action specified");
         }
     }
 

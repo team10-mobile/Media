@@ -9,16 +9,20 @@ import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
 import com.example.mediaplayer.R;
+import com.example.mediaplayer.dataloader.ArtistLoader;
 import com.example.mediaplayer.dataloader.SongLoader;
+import com.example.mediaplayer.models.Artist;
 import com.example.mediaplayer.models.Song;
 import com.example.mediaplayer.utils.MusicUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MusicPlayer {
 
@@ -66,7 +70,9 @@ public class MusicPlayer {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
             mediaService =((MediaPlayerService.LocalBinder)service).getService();
+
             setSongs(SongLoader.getAllSongs(mContext));
+
         }
 
         @Override
@@ -136,6 +142,10 @@ public class MusicPlayer {
 
     public  static void setSongs(ArrayList<Song> songs){
         if(mediaService != null) mediaService.setSongs(songs);
+    }
+
+    public  static void setArtists(List<Artist> artists){
+        if(mediaService != null) mediaService.setArtists(artists);
     }
 
     public static void setDefaultSong(){
@@ -287,5 +297,11 @@ public class MusicPlayer {
     public static final boolean isPlaybackServiceConnected() {
         return mediaService != null;
     }
+
+    public static void refresh() {
+            if (mediaService != null) {
+                mediaService.refresh();
+            }
+        }
 
 }

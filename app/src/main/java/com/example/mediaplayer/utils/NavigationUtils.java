@@ -3,6 +3,7 @@ package com.example.mediaplayer.utils;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +12,7 @@ import android.util.Pair;
 import android.view.View;
 
 import com.example.mediaplayer.R;
+import com.example.mediaplayer.activities.MainActivity;
 import com.example.mediaplayer.activities.PlaylistDetailActivity;
 import com.example.mediaplayer.fragments.AlbumDetailFragment;
 import com.example.mediaplayer.fragments.ArtistDetailFragment;
@@ -23,7 +25,8 @@ public class NavigationUtils {
     @TargetApi(21)
     public static void navigateToAlbum(Activity context, long albumID, Pair<View, String> transitionViews) {
 
-        FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction =
+                ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
         Fragment fragment;
         transaction.setCustomAnimations(R.anim.activity_fade_in,
                 R.anim.activity_fade_out, R.anim.activity_fade_in, R.anim.activity_fade_out);
@@ -73,6 +76,14 @@ public class NavigationUtils {
         } else {
             context.startActivityForResult(intent, Constants.ACTION_DELETE_PLAYLIST);
         }
+    }
+
+
+    public static void goToArtist(Context context, long artistId) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setAction(Constants.NAVIGATE_ARTIST);
+        intent.putExtra(Constants.ARTIST_ID, artistId);
+        context.startActivity(intent);
     }
 
 }

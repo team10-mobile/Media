@@ -58,9 +58,11 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder
     @Override
     public void onBindViewHolder(@NonNull ItemHolder itemHolder, int i) {
         final Artist artist = arraylist.get(i);
-        itemHolder.name.setText(artist.name);//Thiết lặp hình ảnh cho một artist
+        itemHolder.name.setText(artist.name);
+
         String albumNmber = MusicUtils.makeLabel(mContext, R.plurals.Nalbums, artist.albumCount);
         String songCount = MusicUtils.makeLabel(mContext, R.plurals.Nsongs, artist.songCount);
+
         itemHolder.albums.setText(MusicUtils.makeCombinedString(mContext, albumNmber, songCount));//Thiết lặp số lượng album và bài hát cho nghệ sĩ
 
         if (MusicUtils.isLollipop())
@@ -75,14 +77,16 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder
 
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected TextView name, albums;
+
         protected ImageView artistImage;
+
         protected View footer;
 
         public ItemHolder(View view) {
             super(view);
-            this.name = (TextView) view.findViewById(R.id.artist_name);
-            this.albums = (TextView) view.findViewById(R.id.album_song_count);
-            this.artistImage = (ImageView) view.findViewById(R.id.artistImage);
+            this.name = view.findViewById(R.id.artist_name);
+            this.albums =  view.findViewById(R.id.album_song_count);
+            this.artistImage =  view.findViewById(R.id.artistImage);
             this.footer = view.findViewById(R.id.footer);
             view.setOnClickListener(this);
         }
