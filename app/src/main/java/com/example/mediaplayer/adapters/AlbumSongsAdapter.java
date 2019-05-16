@@ -69,7 +69,7 @@ public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHol
                             case R.id.popup_song_play:
                                 MusicPlayer.playAll(mContext,
                                         position,
-                                        MusicUtils.IdType.NA,
+                                        MusicUtils.IdType.Album,
                                         arraylist.get(position),
                                         false);
                                 break;
@@ -144,7 +144,7 @@ public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHol
                 @Override
                 public void run() {
                     playAll(mContext, getAdapterPosition(),
-                            MusicUtils.IdType.NA, arraylist.get(getAdapterPosition()), false);
+                            MusicUtils.IdType.Album, arraylist.get(getAdapterPosition()), false);
                 }
             }, 100);
         }

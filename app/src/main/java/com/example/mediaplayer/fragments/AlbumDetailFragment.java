@@ -157,4 +157,6 @@ public class AlbumDetailFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

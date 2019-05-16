@@ -17,6 +17,9 @@ import com.example.mediaplayer.R;
 import com.example.mediaplayer.models.Artist;
 import com.example.mediaplayer.utils.MusicUtils;
 import com.example.mediaplayer.utils.NavigationUtils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.List;
 
@@ -63,7 +66,15 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder
         String albumNmber = MusicUtils.makeLabel(mContext, R.plurals.Nalbums, artist.albumCount);
         String songCount = MusicUtils.makeLabel(mContext, R.plurals.Nsongs, artist.songCount);
 
-        itemHolder.albums.setText(MusicUtils.makeCombinedString(mContext, albumNmber, songCount));//Thiết lặp số lượng album và bài hát cho nghệ sĩ
+        itemHolder.albums.setText(MusicUtils.makeCombinedString(mContext, albumNmber, songCount));
+        //Thiết lặp số lượng album và bài hát cho nghệ sĩ
+        //Framwork imageloader
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
+        imageLoader.displayImage(MusicUtils.getAlbumArtUri(artist.id).toString(),
+                itemHolder.artistImage, new DisplayImageOptions.Builder().cacheInMemory(true)
+                        .showImageOnLoading(R.drawable.ic_song_perform)
+                        .resetViewBeforeLoading(true).build());
 
         if (MusicUtils.isLollipop())
             itemHolder.artistImage.setTransitionName("transition_artist_art" + i);

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.provider.MediaStore;
 
 import com.example.mediaplayer.models.Artist;
+import com.example.mediaplayer.utils.PreferencesUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,13 @@ public class ArtistLoader {
     }
 
     public static Cursor makeArtistCursor(Context context, String selection, String[] paramArrayOfString) {
-        Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI, new String[]{"_id", "artist", "number_of_albums", "number_of_tracks"}, selection, paramArrayOfString, null);
+        String artistSortOrder = PreferencesUtility.getInstance(context).getArtistSortOrder();
+        Cursor cursor = context.getContentResolver()
+                .query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
+                        new String[]{"_id", "artist", "number_of_albums", "number_of_tracks"},
+                        selection,
+                        paramArrayOfString,
+                        artistSortOrder);
         return cursor;
     }
 

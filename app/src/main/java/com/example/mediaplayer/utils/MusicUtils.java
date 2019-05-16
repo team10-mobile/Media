@@ -34,6 +34,10 @@ public class MusicUtils {
         return ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), albumId);
     }
 
+    public static Uri getArtistArtUri(long artistId) {
+        return ContentUris.withAppendedId(Uri.parse("content://media/external/audio/artistart"), artistId);
+    }
+
     public static int getBlackWhiteColor(int color) {
         double darkness = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
         if (darkness >= 0.5) {

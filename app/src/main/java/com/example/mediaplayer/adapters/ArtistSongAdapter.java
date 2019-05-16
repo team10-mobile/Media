@@ -82,7 +82,7 @@ public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHol
             imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
             imageLoader.displayImage(MusicUtils.getAlbumArtUri(localItem.albumId).toString(),
                     itemHolder.albumArt, new DisplayImageOptions.Builder()
-                            .cacheInMemory(true).showImageOnLoading(R.drawable.ic_empty_music)
+                            .cacheInMemory(true).showImageOnLoading(R.drawable.ic_song_perform)
                             .resetViewBeforeLoading(true).build());
             setOnPopupMenuListener(itemHolder, i - 1);
         }
@@ -115,7 +115,7 @@ public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHol
                 @Override
                 public void run() {
                     playAll(mContext, getAdapterPosition(),
-                            MusicUtils.IdType.NA, arraylist.get(getAdapterPosition()), false);
+                            MusicUtils.IdType.Artist, arraylist.get(getAdapterPosition()), false);
                 }
             }, 100);
         }
@@ -148,38 +148,38 @@ public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHol
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
-
                             case R.id.popup_song_play:
                                 MusicPlayer.playAll(mContext,
-                                        position,
-                                        MusicUtils.IdType.NA,
-                                        arraylist.get(position),
+                                        position + 1,
+                                        MusicUtils.IdType.Artist,
+                                        arraylist.get(position+1),
                                         false);
                                 break;
 
                             case R.id.popup_song_goto_album:
                                 NavigationUtils.navigateToAlbum(mContext,
-                                        arraylist.get(position).albumId,
+                                        arraylist.get(position+1).albumId,
                                         new Pair<View, String>(itemHolder.menu,
-                                                "transition_album_art" + position));
+                                                "transition_album_art" + (position+1)));
                                 break;
 
                             case R.id.popup_song_goto_artist:
                                 NavigationUtils.navigateToArtist(mContext,
-                                        arraylist.get(position).artistId,
+                                        arraylist.get(position + 1).artistId,
                                         new Pair<View, String>(itemHolder.menu,
-                                                "transition_artist_art" + position));
+                                                "transition_artist_art" + (position+1)));
                                 break;
+
                             case R.id.popup_song_delete:
-                                long[] deleteIds = {arraylist.get(position).id};
+                                long[] deleteIds = {arraylist.get(position+1).id};
                                 MusicUtils.showDeleteDialog(mContext,arraylist.get(position).title,
                                         deleteIds,
                                         ArtistSongAdapter.this,
-                                        position);
+                                        position+1);
                                 break;
 
                             case R.id.popup_song_addto_playlist:
-                                AddPlaylistDialog.newInstance(arraylist.get(position))
+                                AddPlaylistDialog.newInstance(arraylist.get(position+1))
                                         .show(mContext.getSupportFragmentManager(),
                                                 "ADD_PLAYLIST");
                                 break;

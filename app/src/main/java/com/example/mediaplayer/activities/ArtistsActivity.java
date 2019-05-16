@@ -10,8 +10,7 @@ public class ArtistsActivity extends AppCompatActivity {
 
     private ListView mListArtist;
 
-    private void mapping()
-    {
+    private void mapping() {
         mListArtist = findViewById(R.id.list_artists);
     }
 

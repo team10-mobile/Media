@@ -19,7 +19,6 @@
         <activity android:name=".activities.FavoritesActivity" />
         <activity android:name=".activities.DownLoadActivity" />
         <activity android:name=".activities.PlaylistActivity" />
-        <activity android:name=".activities.PlaySongsActivity" />
         <activity
             android:name=".activities.PlaylistDetailActivity"
             android:theme="@style/AppTheme.FullScreen.Light" />

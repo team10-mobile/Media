@@ -9,18 +9,15 @@ import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
 import com.example.mediaplayer.R;
-import com.example.mediaplayer.dataloader.ArtistLoader;
 import com.example.mediaplayer.dataloader.SongLoader;
 import com.example.mediaplayer.models.Artist;
 import com.example.mediaplayer.models.Song;
 import com.example.mediaplayer.utils.MusicUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

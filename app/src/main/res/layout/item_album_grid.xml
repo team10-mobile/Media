@@ -23,6 +23,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:scaleType="centerCrop"
+                android:src="@drawable/ic_song_perform2"
                 android:transitionName="transition_album_art" />
 
             <LinearLayout
