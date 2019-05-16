@@ -18,9 +18,9 @@
 
         android:pivotY="50%"
 
-        android:toXScale="3"
+        android:toXScale="1.2"
 
-        android:toYScale="3" >
+        android:toYScale="1.2" >
 
     </scale>
 

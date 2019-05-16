@@ -39,6 +39,7 @@ public class ModeMusicFragment extends Fragment {
         mLocalMusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frame_music_contains,mMyMusicFragment);
                 fragmentTransaction.addToBackStack(null);

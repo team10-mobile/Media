@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.mediaplayer.models.Artist;
 import com.example.mediaplayer.models.Song;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -59,13 +60,18 @@ public class MediaPlayerService extends Service implements
 
     private ArrayList<Song> listAllSongs = null;
 
-    private List<Artist> listAllArtists= null;
-
     private boolean mIsInitialized = false;
 
     @Override
     public IBinder onBind(Intent intent) {
         return this.binder;
+    }
+
+    public void setArtists(List<Artist> artists) {
+    }
+
+    public void refresh() {
+        senBroadcastToUpdateMusicState();
     }
 
     public class LocalBinder extends Binder {
@@ -217,8 +223,15 @@ public class MediaPlayerService extends Service implements
             mediaPlayer.setDataSource(getApplicationContext(), trackUri);
             return true;
         } catch (Exception e) {
-            Log.e("MUSIC SERVICE", "Error setting data source", e);
-            return false;
+            try {
+                mediaPlayer.setDataSource(String.valueOf(songCurrent.uri));
+                mediaPlayer.setOnPreparedListener(this);
+                return true;
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                Log.e("MUSIC SERVICE", "Error setting data source", e);
+                return false;
+            }
         }
     }
 
@@ -300,10 +313,6 @@ public class MediaPlayerService extends Service implements
 
     public void setSongs(ArrayList<Song> songs) {
         this.listAllSongs = songs;
-    }
-
-    public void setArtists(List<Artist> artists) {
-        this.listAllArtists = artists;
     }
 
     public void setDefaultSong() {
@@ -395,8 +404,5 @@ public class MediaPlayerService extends Service implements
         }
     }
 
-    public void refresh(){
-        senBroadcastToUpdateMusicState();
-    }
 
 }

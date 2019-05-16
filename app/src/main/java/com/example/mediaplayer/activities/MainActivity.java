@@ -124,8 +124,8 @@ public class MainActivity extends BaseActivity {
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         ///Them music control tai day
-        mFragmentTransaction.add(R.id.frame_music_contains, new MyMusicFragment());
-        mFragmentTransaction.add(R.id.frame_music_mode, new ModeMusicFragment());
+        mFragmentTransaction.replace(R.id.frame_music_contains, new MyMusicFragment());
+        mFragmentTransaction.replace(R.id.frame_music_mode, new ModeMusicFragment());
         mFragmentTransaction.commit();
     }
 

@@ -1,12 +1,16 @@
 package com.example.mediaplayer.adapters;
 
 
-import android.graphics.Bitmap;
+import android.app.DownloadManager;
+import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,14 +18,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.mediaplayer.R;
-import com.example.mediaplayer.activities.BaseActivity;
-import com.example.mediaplayer.dataloader.SongLoader;
 import com.example.mediaplayer.dialogs.AddPlaylistDialog;
+import com.example.mediaplayer.fragments.DownloadFragment;
 import com.example.mediaplayer.models.Song;
 import com.example.mediaplayer.service.MusicPlayer;
 import com.example.mediaplayer.utils.MusicUtils;
@@ -31,13 +36,25 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Adapter để đổ nhạc lên recycler view
  */
-public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder> {
+public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder> implements Filterable {
+
+    public boolean isOnline;
 
     public int currentlyPlayingPosition;//Vị trí của bái hát đang phát hiện tại
 
@@ -57,6 +74,8 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
 
     private long playlistId;//Id của playlist
 
+    private List<Song> mStringFilterList;     // Dùng trong việc tìm kiếm bài hát
+    private ValueFilter valueFilter;
 
     public SongListAdapter(AppCompatActivity context, List<Song> arraylist,
                            boolean isPlaylistSong, boolean animate) {
@@ -68,6 +87,7 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
 
         this.songIDs = getSongIds();
         this.animate = animate;
+        this.mStringFilterList = arraylist;
     }
 
     //Chuyen doi view holder thanh javacode
@@ -166,12 +186,33 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
                                       .show(mContext.getSupportFragmentManager(),
                                       "ADD_PLAYLIST");
                               break;
+                          case R.id.popup_download:
+                              Uri uri = arraylist.get(postion).uri;
+                              long lastDownload =-1;
+                              DownloadManager mgr = null;
+                              mgr = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+                              Environment
+                                      .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                      .mkdirs();
+
+                              lastDownload = mgr.enqueue(new DownloadManager.Request(uri)
+                                      .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                                              DownloadManager.Request.NETWORK_MOBILE)
+                                      .setAllowedOverRoaming(false)
+                                      .setTitle(arraylist.get(postion).title)
+                                      .setDescription("Downloading, Please Wait...s")
+                                      .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
+                                              arraylist.get(postion).title+".mp3"));
                       }
                       return false;
                   }
               });
 
-              popupMenu.inflate(R.menu.popup_song);
+              if(isOnline)
+                  popupMenu.inflate(R.menu.popup_online_selection);
+              else
+                  popupMenu.inflate(R.menu.popup_song);
+
               popupMenu.show();
               //Nếu item là một playlist thì hiển thị lên popup menu item cho phép xóa đi playlist
               if(isPlaylist){
@@ -179,6 +220,45 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
               }
             }
         });
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+    }
+
+    private class ValueFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+                List<Song> filterList = new ArrayList<>();
+                for (int i = 0; i < mStringFilterList.size(); i++) {
+                    if ((mStringFilterList.get(i).title.toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                        filterList.add(mStringFilterList.get(i));
+                    }
+                }
+                results.count = filterList.size();
+                results.values = filterList;
+            } else {
+                results.count = mStringFilterList.size();
+                results.values = mStringFilterList;
+            }
+            return results;
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint,
+                                      FilterResults results) {
+            arraylist = (List<Song>) results.values;
+            notifyDataSetChanged();
+        }
+
     }
 
     public  class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

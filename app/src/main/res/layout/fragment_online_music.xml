@@ -1,28 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
+<GridLayout
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <Button
-            android:id="@+id/btnVieSong"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/btnEngSong"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-    </LinearLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycListSongOnline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fadeScrollbars="true"/>
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-</LinearLayout>
+    <LinearLayout
+        android:weightSum="4"
+        android:id="@+id/layoutScreenload"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+        <View
+            android:layout_weight="0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"/>
+
+        <ProgressBar
+            android:layout_weight="1"
+            android:layout_width="70dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"/>
+        <View
+            android:layout_weight="2.5"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_height="match_parent"
+        android:id="@+id/layoutOnline"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+        <SearchView
+            android:id="@+id/edtFindSong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_bar_online"
+            android:queryHint="Search"
+            android:textSize="20sp"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="5dp">
+            <Button
+                android:id="@+id/btnVieSong"
+                android:layout_width="230dp"
+                android:layout_height="match_parent"
+                android:text="Vie"
+                android:textSize="50sp"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:layout_gravity="start"
+                android:background="@drawable/background_button_online"
+                android:layout_marginLeft="10dp" />
+            <Button
+                android:id="@+id/btnEngSong"
+                android:layout_width="230dp"
+                android:layout_height="match_parent"
+                android:text="Eng"
+                android:textSize="50sp"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:layout_gravity="end"
+                android:background="@drawable/background_button_online"
+                android:layout_marginRight="10dp"/>
+        </FrameLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycListSongOnline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="true"/>
+
+    </LinearLayout>
+
+</GridLayout>
