@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MusicDB extends SQLiteOpenHelper {
 
     public static final String DATABASENAME = "musicdb.db";
+
     private static final int VERSION = 4;
+
     private static MusicDB sInstance = null;
 
     private final Context mContext;

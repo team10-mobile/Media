@@ -32,6 +32,7 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
+                android:background="@drawable/ic_song_perform3"
                 android:transitionName="transition_artist_image" />
 
             <View

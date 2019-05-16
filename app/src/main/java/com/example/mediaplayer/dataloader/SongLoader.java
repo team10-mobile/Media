@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 
 import com.example.mediaplayer.models.Song;
+import com.example.mediaplayer.utils.PreferencesUtility;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,7 @@ public class SongLoader {
 
     //Trả về một cursor trở đến một bảng chứa tất cả bài hát trong máy
     public static Cursor makeSongCursor(Context context, String selection, String[] paramArrayOfString){
-         String songSortOrder = null;//Ngay cho nay can sap xep bai hat thi xay dung framework them
+         String songSortOrder = PreferencesUtility.getInstance(context).getSongSortOrder();
         return makeSongCursor(context, selection, paramArrayOfString, songSortOrder);
     }
 

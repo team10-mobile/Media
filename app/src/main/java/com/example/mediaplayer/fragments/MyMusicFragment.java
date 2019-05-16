@@ -19,8 +19,17 @@ public class MyMusicFragment extends Fragment {
     private View mView;
     private Intent mIntent;
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        mView = inflater.inflate(R.layout.fragment_my_music, container, false);
+        mapViews();
+        openCategory();
+        return mView;
+    }
+
     // mapping views
-    private void mapping()
+    private void mapViews()
     {
         mSongs = mView.findViewById(R.id.songs);
         mPlaylist = mView.findViewById(R.id.playlist);
@@ -29,8 +38,9 @@ public class MyMusicFragment extends Fragment {
         mArtist = mView.findViewById(R.id.artists);
         mAlbums = mView.findViewById(R.id.albums);
     }
+
     // open activities
-    private void openLibrary()
+    private void openCategory()
     {
         mSongs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,15 +95,6 @@ public class MyMusicFragment extends Fragment {
                 fragmentTransaction.replace(R.id.frame_music_contains,fragment).commitAllowingStateLoss();
             }
         });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_my_music, container, false);
-        mapping();
-        openLibrary();
-        return mView;
     }
 
 

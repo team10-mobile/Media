@@ -124,10 +124,8 @@ public class MainActivity extends BaseActivity {
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         ///Them music control tai day
-
-        mFragmentTransaction.replace(R.id.frame_music_contains, new MyMusicFragment());
-
-        mFragmentTransaction.replace(R.id.frame_music_mode, new ModeMusicFragment());
+        mFragmentTransaction.add(R.id.frame_music_contains, new MyMusicFragment());
+        mFragmentTransaction.add(R.id.frame_music_mode, new ModeMusicFragment());
         mFragmentTransaction.commit();
     }
 
@@ -147,6 +145,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+
         FragmentManager mFragmentManager = getSupportFragmentManager();
         Fragment fragment = mFragmentManager.findFragmentById(R.id.frame_music_contains);
 
@@ -407,5 +406,6 @@ public class MainActivity extends BaseActivity {
         }
         seekBarSong.postDelayed(mUpdateProgress, 10);
     }
+
 
 }

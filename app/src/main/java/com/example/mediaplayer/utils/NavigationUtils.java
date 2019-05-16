@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +15,10 @@ import android.view.View;
 import com.example.mediaplayer.R;
 import com.example.mediaplayer.activities.MainActivity;
 import com.example.mediaplayer.activities.PlaylistDetailActivity;
+import com.example.mediaplayer.activities.TestFragment;
 import com.example.mediaplayer.fragments.AlbumDetailFragment;
 import com.example.mediaplayer.fragments.ArtistDetailFragment;
+import com.example.mediaplayer.fragments.ArtistFragment;
 
 import java.util.ArrayList;
 
@@ -31,7 +34,6 @@ public class NavigationUtils {
         transaction.setCustomAnimations(R.anim.activity_fade_in,
                 R.anim.activity_fade_out, R.anim.activity_fade_in, R.anim.activity_fade_out);
         fragment = AlbumDetailFragment.newInstance(albumID, false, null);
-
         transaction.hide(((AppCompatActivity) context).
                 getSupportFragmentManager().findFragmentById(R.id.frame_music_contains));
         transaction.add(R.id.frame_music_contains, fragment);
@@ -61,8 +63,8 @@ public class NavigationUtils {
     }
 
     @TargetApi(21)
-    public static void navigateToPlaylistDetail(Activity context, String action, long firstAlbumID, String playlistName, int foregroundcolor, long playlistID, ArrayList<Pair> transitionViews) {
-        final Intent intent = new Intent(context, PlaylistDetailActivity.class);
+    public static void navigateToPlaylistDetail(Activity context, Bundle bundle, long firstAlbumID, int foregroundcolor, long playlistID, ArrayList<Pair> transitionViews) {
+        /*final Intent intent = new Intent(context, PlaylistDetailActivity.class);
         intent.setAction(action);
         intent.putExtra(Constants.PLAYLIST_ID, playlistID);
         intent.putExtra(Constants.PLAYLIST_FOREGROUND_COLOR, foregroundcolor);
@@ -75,7 +77,14 @@ public class NavigationUtils {
             context.startActivityForResult(intent, Constants.ACTION_DELETE_PLAYLIST, options.toBundle());
         } else {
             context.startActivityForResult(intent, Constants.ACTION_DELETE_PLAYLIST);
-        }
+        }*/
+
+        Fragment fragment = new TestFragment();
+        fragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction =
+                ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame_music_contains,fragment);
+        fragmentTransaction.addToBackStack(null).commitAllowingStateLoss();
     }
 
 

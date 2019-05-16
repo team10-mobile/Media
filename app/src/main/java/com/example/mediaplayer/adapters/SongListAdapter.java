@@ -49,6 +49,8 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
 
     private boolean isPlaylist;//Cho biết có playlist nào đang được phát hay không
 
+    private MusicUtils.IdType sourceType = MusicUtils.IdType.NA;
+
     private boolean animate;
 
     private int lastPosition = -1;
@@ -61,6 +63,9 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
         this.arraylist = arraylist;
         this.mContext = context;
         this.isPlaylist = isPlaylistSong;
+
+        if(isPlaylistSong) sourceType= MusicUtils.IdType.Playlist;
+
         this.songIDs = getSongIds();
         this.animate = animate;
     }
@@ -129,7 +134,7 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
                           case R.id.popup_song_play:
                               MusicPlayer.playAll(mContext,
                                       postion,
-                                      MusicUtils.IdType.NA,
+                                      sourceType,
                                       arraylist.get(postion),
                                       false);
                               break;
@@ -147,6 +152,7 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
                                       new Pair<View, String>(itemHolder.albumArt,
                                               "transition_artist_art" + postion));
                               break;
+
                           case R.id.popup_song_delete:
                               long[] deleteIds = {arraylist.get(postion).id};
                               MusicUtils.showDeleteDialog(mContext,arraylist.get(postion).title,
@@ -185,11 +191,11 @@ public class SongListAdapter extends BaseSongAdapter<SongListAdapter.ItemHolder>
 
         public ItemHolder(View view) {
             super(view);
-            this.title = view.findViewById(R.id.song_title);
-            this.artist = view.findViewById(R.id.song_artist);
-            this.albumArt = view.findViewById(R.id.albumArt);
+            this.title     = view.findViewById(R.id.song_title);
+            this.artist    = view.findViewById(R.id.song_artist);
+            this.albumArt  = view.findViewById(R.id.albumArt);
             this.popupMenu = view.findViewById(R.id.popup_menu);
-            visualizer = view.findViewById(R.id.visualizer);
+            visualizer     = view.findViewById(R.id.visualizer);
             view.setOnClickListener(this);
         }
 

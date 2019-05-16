@@ -16,10 +16,15 @@ import com.example.mediaplayer.R;
 public class ModeMusicFragment extends Fragment {
 
     private View mView;
+
     private ImageView mLocalMusic;
+
     private ImageView mOnlineMusic;
+
     private FragmentManager mFragmentManager;
+
     private MyMusicFragment mMyMusicFragment;
+
     private OnlineMusicFragment mOnlineMusicFragment;
 
     // mapping view

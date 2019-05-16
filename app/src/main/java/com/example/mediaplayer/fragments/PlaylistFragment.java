@@ -28,6 +28,7 @@ import com.example.mediaplayer.dataloader.PlaylistLoader;
 import com.example.mediaplayer.dialogs.CreatePlaylistDialog;
 import com.example.mediaplayer.models.Playlist;
 import com.example.mediaplayer.utils.Constants;
+import com.example.mediaplayer.utils.PreferencesUtility;
 import com.example.mediaplayer.widgets.MultiViewPager;
 
 import java.util.ArrayList;
@@ -47,6 +48,8 @@ public class PlaylistFragment extends Fragment {
 
     private RecyclerView.ItemDecoration itemDecoration;
 
+    private PreferencesUtility mPreferences;
+
     private boolean isGrid;
 
     private boolean isDefault;
@@ -60,9 +63,13 @@ public class PlaylistFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isGrid = false;
+        /*isGrid = false;
         isDefault = true;
-        showAuto = true;
+        showAuto = true;*/
+        mPreferences = PreferencesUtility.getInstance(getActivity());
+        isGrid = mPreferences.getPlaylistView() == Constants.PLAYLIST_VIEW_GRID;
+        isDefault = mPreferences.getPlaylistView() == Constants.PLAYLIST_VIEW_DEFAULT;
+        showAuto = mPreferences.showAutoPlaylist();
 
     }
 

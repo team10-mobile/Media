@@ -36,6 +36,16 @@ import java.util.Random;
 
 public class PlaylistPagerFragment extends Fragment {
     private static final String ARG_PAGE_NUMBER = "pageNumber";
+    public static final  String PLAYLIST_TYPE = "PLAYLIST_TYPE";
+
+    public static final  String PLAYLIST_FIRST_ALBUM = "PLAYLIST_FIRST_ALBUM";
+
+    public static final  String PLAYLIST_NAME = "PLAYLIST_NAME";
+
+    public static final  String PLAYLIST_COLOR = "PLAYLIST_COLOR";
+
+    public static final  String PLAYLIST_ID = "PLAYLIST_ID";
+
 
     private int[] foregroundColors =
             {R.color.pink_transparent,
@@ -84,10 +94,21 @@ public class PlaylistPagerFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ArrayList<Pair> tranitionViews = new ArrayList<>();
+
                 tranitionViews.add(0, Pair.create((View) playlistame, "transition_playlist_name"));
                 tranitionViews.add(1, Pair.create((View) playlistImage, "transition_album_art"));
                 tranitionViews.add(2, Pair.create(foreground, "transition_foreground"));
-                NavigationUtils.navigateToPlaylistDetail(getActivity(), getPlaylistType(), firstAlbumID, String.valueOf(playlistame.getText()), foregroundColor, playlist.id, tranitionViews);
+
+                Bundle bundle = new Bundle();
+                bundle.putString(PLAYLIST_TYPE,getPlaylistType());
+                bundle.putString(PLAYLIST_NAME,String.valueOf(playlistame.getText()));
+
+                NavigationUtils.navigateToPlaylistDetail(getActivity(),
+                        bundle,
+                        firstAlbumID,
+                        foregroundColor,
+                        playlist.id,
+                        tranitionViews);
             }
         });
 
